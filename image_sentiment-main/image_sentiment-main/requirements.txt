@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+pillow
+exifread
+numpy<2.0
+opencv-python
+imagehash
+matplotlib
+#torch
+#torchvision
+scikit-learn
+python-multipart

@@ -1,0 +1,29 @@
+#version: '3'
+
+services:
+  backend:
+    build:
+      context: ./image_sentiment-main/image_sentiment-main
+    container_name: fastapi-backend
+    ports:
+      - "8000:8000"
+    #volumes:
+      #- ./image_sentiment-main/image_sentiment-main:/app
+    restart: always
+    #networks:
+      #- fullstack-net
+
+  frontend:
+    build: 
+      context: ./image-analyzer
+    container_name: react-frontend
+    ports:
+      - "3000:80"
+    #depends_on:
+      #- image_sentiment-main/image_sentiment-main
+    restart: always
+    #networks:
+      #- fullstack-net
+
+#networks:
+  #fullstack-net:
