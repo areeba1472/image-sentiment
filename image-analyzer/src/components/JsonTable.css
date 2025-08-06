@@ -1,10 +1,54 @@
-/* Example for both */
-table {
+/* Base table styling */
+table.data-table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-td {
+/* Table header */
+table.data-table thead tr {
+  background-color: #2c3e50;
+  color: white;
+}
+
+table.data-table th,
+table.data-table td {
   border: 1px solid #ccc;
-  padding: 8px;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+/* Zebra-striping */
+table.data-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+/* Icons for missing data */
+.no-data-message {
+  display: flex;
+  align-items: center;
+  color: #e74c3c;
+  font-weight: 500;
+  background: #fdecea;
+  padding: 10px;
+  border-left: 5px solid #e74c3c;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 15px;
+}
+
+/* Inline missing value cell */
+.data-row .missing-value {
+  color: #999;
+  font-style: italic;
+}
+
+/* Icon alignment */
+.data-table .value-cell svg {
+  vertical-align: middle;
+  margin-right: 6px;
+  font-size: 1rem;
 }

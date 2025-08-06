@@ -1,0 +1,48 @@
+.hash-table {
+  margin-bottom: 2rem;
+}
+
+.comparison-input {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.comparison-input input {
+  padding: 6px 10px;
+  font-size: 14px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.data-table .match td {
+  background-color: #e0ffe0;
+  font-weight: bold;
+}
+
+button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

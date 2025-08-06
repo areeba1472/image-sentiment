@@ -3,6 +3,9 @@ import ResultSection from './ResultSection';
 import './MetadataPage.css';
 import JsonTable from './JsonTable';
 import MatrixTable from './MatrixTable';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { mapKeysToLabels } from '../utils/MetadataMapper';
+import HashTable from './HashTable';
 
 const MetadataPage = ({ imageData }) => {
   const sections = [
@@ -53,10 +56,37 @@ const MetadataPage = ({ imageData }) => {
             )}
 
             <h3>EXIF Metadata - PIL</h3>
-            <JsonTable data={imageData.metadata_pil} showColumnHeaders={false} />
+            {imageData.metadata_pil &&
+              Object.keys(imageData.metadata_pil).filter((key) => key.toLowerCase() !== 'info').length > 0 ? (
+              <JsonTable
+                data={Object.fromEntries(
+                  Object.entries(imageData.metadata_pil).filter(([key]) => key.toLowerCase() !== 'info')
+                )}
+                showColumnHeaders={false}
+              />
+            ) : (
+              <p style={{ display: 'flex', alignItems: 'center' }}>
+                <FaTimesCircle color="red" style={{ marginRight: '6px' }} />
+                No image metadata found.
+              </p>
+            )}
 
             <h3>EXIF Metadata - ExifRead</h3>
-            <JsonTable data={imageData.metadata_exifread} showColumnHeaders={false} />
+            {imageData.metadata_exifread &&
+              Object.keys(imageData.metadata_exifread).filter((key) => key.toLowerCase() !== 'info').length > 0 ? (
+              <JsonTable
+                data={Object.fromEntries(
+                  Object.entries(imageData.metadata_exifread).filter(([key]) => key.toLowerCase() !== 'info')
+                )}
+                showColumnHeaders={false}
+              />
+            ) : (
+              <p style={{ display: 'flex', alignItems: 'center' }}>
+                <FaTimesCircle color="red" style={{ marginRight: '6px' }} />
+                No image metadata found.
+              </p>
+            )}
+
             <h3>Brightness Histogram (first 10 values)</h3>
             {imageData.lighting_inconsistencies?.brightness_histogram ? (
               <JsonTable data={Object.fromEntries(
@@ -69,27 +99,27 @@ const MetadataPage = ({ imageData }) => {
             )}
 
             <h3>Hashes</h3>
-            <JsonTable data={imageData.hashes} showColumnHeaders={false} />
-
+            <HashTable data={imageData.hashes} />
 
             <h3>Lighting Inconsistencies</h3>
-            <JsonTable data={{
-              mean_local_variance: imageData.lighting_inconsistencies.mean_local_variance.toFixed(2),
-              std_local_variance: imageData.lighting_inconsistencies.std_local_variance.toFixed(2)
-            }} showColumnHeaders={false} />
+            <JsonTable
+              data={mapKeysToLabels({
+                mean_local_variance: imageData.lighting_inconsistencies.mean_local_variance.toFixed(2),
+                std_local_variance: imageData.lighting_inconsistencies.std_local_variance.toFixed(2)
+              })}
+              showColumnHeaders={false}
+            />
 
             <h3>Regional Noise Variation</h3>
             {Array.isArray(imageData.noise_analysis?.regional_variation) &&
               imageData.noise_analysis.regional_variation.length > 0 ? (
               <JsonTable
                 data={Object.fromEntries(
-                  imageData.noise_analysis.regional_variation.map((item) => {
-                    const key = Object.keys(item)[0];
-                    return [key, item[key]];
-                  })
+                  mapKeysToLabels(imageData.noise_analysis.regional_variation).map(item => Object.entries(item)[0])
                 )}
                 columnHeaders={['Region', 'Value']}
               />
+
             ) : (
               <p>No regional noise variation data available.</p>
             )}
@@ -210,12 +240,20 @@ const MetadataPage = ({ imageData }) => {
             )}
 
             <h3>JPEG Quality Estimate</h3>
-            <p>
-              {imageData.jpeg_quality_details?.quality_estimate !== undefined
-                ? `${imageData.jpeg_quality_details.quality_estimate}`
-                : 'Not a JPEG image'}
+            <p style={{ display: 'flex', alignItems: 'center' }}>
+              {imageData?.jpeg_quality_details?.quality_estimate !== undefined &&
+                imageData?.jpeg_quality_details?.quality_estimate !== null ? (
+                <>
+                  <FaCheckCircle color="green" style={{ marginRight: '6px' }} />
+                  {imageData.jpeg_quality_details.quality_estimate}
+                </>
+              ) : (
+                <>
+                  <FaTimesCircle color="red" style={{ marginRight: '6px' }} />
+                  <span>This image is not in JPEG format.</span>
+                </>
+              )}
             </p>
-
 
             <h3>Luminance Quantization Table</h3>
             <MatrixTable matrix={imageData.jpeg_quality_details?.quantization_tables?.Luminance} />
