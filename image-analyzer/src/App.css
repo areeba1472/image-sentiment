@@ -1,14 +1,33 @@
 .app-container {
   font-family: 'Segoe UI', sans-serif;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 40px;
-  background: linear-gradient(to right, #f8f8f8, #e0e0e0);
+  background: linear-gradient(135deg, #6D83F2, #9B51E0);
   min-height: 100vh;
+}
+
+.upload-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  width: 420px;
+  animation: fadeIn 0.4s ease-in-out;
 }
 
 h1 {
   font-size: 2.5rem;
   color: #333;
+  margin-bottom: 0.3rem;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
 }
 
 .upload-section {
@@ -23,11 +42,12 @@ h1 {
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .custom-file-upload:hover {
   background-color: #357ABD;
+  transform: translateY(-2px);
 }
 
 input[type="file"] {
@@ -46,6 +66,7 @@ input[type="file"] {
   max-height: 300px;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
 }
 
 .image-data {
@@ -55,16 +76,15 @@ input[type="file"] {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
-  width: 90%; /* increase from 80% */
-  max-width: 800px; /* increase from 400px */
+  width: 90%;
+  max-width: 800px;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
   font-family: 'Courier New', Courier, monospace;
-  overflow-x: auto; /* add horizontal scroll if needed */
+  overflow-x: auto;
 }
 
-
 .analyze-button {
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 10px 20px;
   font-size: 16px;
   background-color: #28A745;
@@ -72,11 +92,12 @@ input[type="file"] {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .analyze-button:hover {
   background-color: #218838;
+  transform: translateY(-2px);
 }
 
 .data-available {
@@ -104,4 +125,9 @@ input[type="file"] {
   padding: 10px;
   border-radius: 6px;
   margin-bottom: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

@@ -3,8 +3,13 @@ import './Loader.css';
 
 const Loader = () => (
   <div className="loader-container">
-    <div className="loader"></div>
-    <p>Analyzing image, please wait...</p>
+    <div className="loader-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <p className="loader-text">Analyzing image... <span className="dots"></span></p>
   </div>
 );
 

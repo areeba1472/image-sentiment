@@ -4,37 +4,44 @@ import './MetadataPage.css';
 import JsonTable from './JsonTable';
 import MatrixTable from './MatrixTable';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { FaImage, FaSearch, FaSun, FaWaveSquare, FaCopy, FaCut, FaLayerGroup, FaFingerprint, FaCamera } from 'react-icons/fa';
 import { mapKeysToLabels } from '../utils/MetadataMapper';
 import HashTable from './HashTable';
 
 const MetadataPage = ({ imageData }) => {
   const sections = [
-    'Metadata',
-    'ELA',
-    'Lighting Heatmap',
-    'Noise Map',
-    'Copy-Move',
-    'Splicing',
-    'JPEG Structure',
-    'Digest Info',
-    'JPEG Quality',
+    { name: 'Metadata', icon: <FaSearch /> },
+    { name: 'ELA', icon: <FaLayerGroup /> },
+    { name: 'Lighting Heatmap', icon: <FaSun /> },
+    { name: 'Noise Map', icon: <FaWaveSquare /> },
+    { name: 'Copy-Move', icon: <FaCopy /> },
+    { name: 'Splicing', icon: <FaCut /> },
+    { name: 'JPEG Structure', icon: <FaImage /> },
+    { name: 'Digest Info', icon: <FaFingerprint /> },
+    { name: 'JPEG Quality', icon: <FaCamera /> },
   ];
 
   const [active, setActive] = useState('Metadata');
   const elaBaseUrl = 'http://127.0.0.1:8000/';
 
   return (
+    <>
+    {/*<header className="title-bar">
+      <img src="/camera.png" alt="Logo" className="logo" />
+      <h1>Image Forensics Tool</h1>
+    </header>*/}
     <div className="metadata-page">
       <aside className="sidebar">
         <h2>Results</h2>
         <ul>
-          {sections.map(section => (
+          {sections.map(({ name, icon }) => (
             <li
-              key={section}
-              onClick={() => setActive(section)}
-              className={active === section ? 'active' : ''}
+              key={name}
+              onClick={() => setActive(name)}
+              className={active === name ? 'active' : ''}
             >
-              {section}
+              <span className="icon">{icon}</span>
+              {name}
             </li>
           ))}
         </ul>
@@ -265,6 +272,7 @@ const MetadataPage = ({ imageData }) => {
 
       </main>
     </div>
+    </>
   );
 };
 
